@@ -16,6 +16,7 @@ Dự án làm những công việc sau: Thêm, sửa, xóa danh hiệu, duyệt 
 └── package.json
 ```
 
+thư mục dbbackups chứa bản backup của database, đổi đuôi thành .sql để sử dụng
 
 
 
