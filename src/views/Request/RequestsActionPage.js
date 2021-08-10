@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { CButton } from "@coreui/react";
-
-import data from "./RequestData";
+import { useSelector } from "react-redux";
 
 import Requests from "./Requests";
 
 const RequestsActionPage = () => {
-  const [requests, setRequests] = useState(data);
+  const requests = useSelector((state) => state.requests.list);
 
   const [showAll, setShowAll] = useState(false);
   const showBtnClick = () => {
@@ -16,7 +15,7 @@ const RequestsActionPage = () => {
   return (
     <div>
       <Requests
-        requests={requests.filter((request) => request.status == 1)}
+        requests={requests.filter((request) => request.status === 1)}
         haveAction={true}
       />
       <CButton

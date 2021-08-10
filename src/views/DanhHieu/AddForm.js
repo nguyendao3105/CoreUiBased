@@ -7,22 +7,39 @@ import {
   CFormText,
   CCard,
   CCardBody,
-  CCardHeader,
   CCardFooter,
 } from "@coreui/react";
 
+import { AddDh } from "src/reducers/danhhieu";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+
 import CIcon from "@coreui/icons-react";
 const AddForm = () => {
+  const [name, setName] = useState("");
+  const [req, setReq] = useState("");
+  const dispatch = useDispatch();
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (!name || !req) alert("Vui lòng nhập đầy đủ thông tin");
+    else {
+      const newDh = { name, req };
+      dispatch(AddDh(newDh));
+    }
+    setName("");
+    setReq("");
+  };
   return (
     <CCard>
       <CCardBody>
-        <CForm action="" method="post">
+        <CForm onSubmit={onSubmit} method="post">
           <CFormGroup>
             <CLabel>Tên Danh Hiệu</CLabel>
             <CInput
               type="Text"
               id="inputName"
-              placeholder="Nhập tên danh hiệu"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
             <CFormText className="help-block">Nhập tên danh hiệu</CFormText>
           </CFormGroup>
@@ -31,17 +48,17 @@ const AddForm = () => {
             <CInput
               type="Text"
               id="inputCon"
-              placeholder="Nhập điều kiện xét"
+              value={req}
+              onChange={(e) => setReq(e.target.value)}
             />
             <CFormText className="help-block">Nhập điều kiện xét</CFormText>
           </CFormGroup>
+          <CButton type="submit" size="sm" color="primary">
+            <CIcon name="cil-scrubber" /> Thêm{" "}
+          </CButton>
         </CForm>
       </CCardBody>
-      <CCardFooter>
-        <CButton type="submit" size="sm" color="primary">
-          <CIcon name="cil-scrubber" /> Thêm{" "}
-        </CButton>
-      </CCardFooter>
+      <CCardFooter></CCardFooter>
     </CCard>
   );
 };

@@ -6,7 +6,7 @@ const RequestImg = ({ match }) => {
     <div>
       <img
         src={`proofImg/${match.params.id}/${match.params.fileName}`}
-        alt="proof Image"
+        alt="proof"
       />
     </div>
   );

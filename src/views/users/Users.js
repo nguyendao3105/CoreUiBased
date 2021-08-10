@@ -1,12 +1,19 @@
-import { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+
+import { fetchUsers } from "src/reducers/users";
 
 import { CButton } from "@coreui/react";
 
-import data from "./UsersData";
-
 export const Users = () => {
-  const [users, setUsers] = useState(data);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUsers);
+  }, []);
+
+  const users = useSelector((state) => state.users.list);
 
   return (
     <div>
