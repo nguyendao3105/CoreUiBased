@@ -1,3 +1,24 @@
+Dự án giả định rằng các dữ liệu như user, requests,... đã có sẵn
+
+Dự án làm những công việc sau: Thêm, sửa, xóa danh hiệu, duyệt các yêu cầu có sẵn, xem thông tin người dùng, thống kê dữ liệu ở trang dashboard
+
+*Lưu ý: 
+  File hình ảnh chứa minh chứng cho yêu cầu cũng có sẵn với vị trí như sau:
+```  
+  ├── public/          
+│   └── index.html   
+|   |__ proofImg/
+|       |___1/            #Id của request, mỗi request sẽ được lưu minh chứng trong một thư mục
+            |___file1.jpg #tên minh chứng được lưu trong csdl
+│
+├── src/             
+│
+└── package.json
+```
+
+
+
+
 [![@coreui coreui](https://img.shields.io/badge/@coreui%20-coreui-lightgrey.svg?style=flat-square)](https://github.com/coreui/coreui)
 [![npm package][npm-coreui-badge]][npm-coreui]
 [![NPM downloads][npm-coreui-download]][npm-coreui]  
