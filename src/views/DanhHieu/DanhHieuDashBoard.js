@@ -1,34 +1,29 @@
-import React, { useState } from "react";
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CProgress,
-  CRow,
-} from "@coreui/react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchDh } from "src/reducers/danhhieu";
 
 import CIcon from "@coreui/icons-react";
 
-import danhHieuData from "./DanhHieuData";
-import requestData from "../Request/RequestData";
-
 const DanhHieuDashBoard = () => {
-  const [danhHieus, setDanhHieus] = useState(danhHieuData);
-  const [requests, setRequests] = useState(requestData);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchDh);
+  }, []);
+  const danhHieus = useSelector((state) => state.danhhieu.list);
+  const requests = useSelector((state) => state.requests.list);
   const countReq = (dhId) => {
     return requests.filter((req) => req.type === dhId).length;
   };
   const countPending = (dhId) => {
-    return requests.filter((req) => req.type === dhId && req.status == 1)
+    return requests.filter((req) => req.type === dhId && req.status === 1)
       .length;
   };
   const countSuccess = (dhId) => {
-    return requests.filter((req) => req.type === dhId && req.status == 0)
+    return requests.filter((req) => req.type === dhId && req.status === 0)
       .length;
   };
   const countFail = (dhId) => {
-    return requests.filter((req) => req.type === dhId && req.status == 2)
+    return requests.filter((req) => req.type === dhId && req.status === 2)
       .length;
   };
   return (

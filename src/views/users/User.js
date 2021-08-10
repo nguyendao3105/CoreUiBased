@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   CCard,
   CCardBody,
@@ -12,11 +12,14 @@ import CIcon from "@coreui/icons-react";
 
 import Requests from "../Request/Requests";
 
-import usersData from "./UsersData";
-import requestData from "../Request/RequestData";
+//match.params.id
 
 const User = ({ match }) => {
-  const user = usersData.find((user) => user.id.toString() === match.params.id);
+  const users = useSelector((state) => state.users.list);
+
+  const result = users.filter((user) => user.id.toString() === match.params.id);
+
+  const user = result[0];
   const userDetails = user
     ? Object.entries(user)
     : [
@@ -27,7 +30,7 @@ const User = ({ match }) => {
           </span>,
         ],
       ];
-  const [requests, setRequests] = useState(requestData);
+  const requests = useSelector((state) => state.requests.list);
   return (
     <CRow>
       <CCol lg={6}>
@@ -62,7 +65,7 @@ const User = ({ match }) => {
           <CCardBody>
             <Requests
               requests={requests.filter(
-                (request) => request.studentId.toString() == match.params.id
+                (request) => request.studentId.toString() === match.params.id
               )}
               haveAction={false}
             />

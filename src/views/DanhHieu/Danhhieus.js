@@ -1,18 +1,30 @@
 import { useState } from "react";
 
 import AddForm from "./AddForm";
-
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchDh, RemoveDh } from "src/reducers/danhhieu";
+import { Link } from "react-router-dom";
 
 import { CButton } from "@coreui/react";
 
-import data from "./DanhHieuData";
-
 const Danhhieus = () => {
   const [showAddForm, setShowAddForm] = useState(false);
-  const [danhHieus, setDanhHieus] = useState(data);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchDh);
+  }, []);
+  const danhHieus = useSelector((state) => state.danhhieu.list);
   const addBtnClick = () => {
     setShowAddForm(!showAddForm);
+  };
+  const RemoveDhCLick = (id) => {
+    const confirmBox = window.confirm(
+      "Bạn có chắc là mình muốn xóa danh hiệu này không?"
+    );
+    if (confirmBox) {
+      dispatch(RemoveDh(id));
+    }
   };
   return (
     <div>
@@ -31,7 +43,7 @@ const Danhhieus = () => {
                 <h3>{dh.name}</h3>
               </td>
               <td>
-                <h4>{dh.conditions}</h4>
+                <h4>{dh.requirements}</h4>
               </td>
               <td>
                 <Link to={`/danhhieus/${dh.id}`}>
@@ -39,11 +51,15 @@ const Danhhieus = () => {
                     Sửa
                   </CButton>
                 </Link>
-                <Link to={`/danhhieus/${dh.id}`}>
-                  <CButton color="primary" variant="ghost">
-                    Xóa
-                  </CButton>
-                </Link>
+                <CButton
+                  color="primary"
+                  variant="ghost"
+                  onClick={() => {
+                    RemoveDhCLick(dh.id);
+                  }}
+                >
+                  Xóa
+                </CButton>
               </td>
             </tr>
           ))}

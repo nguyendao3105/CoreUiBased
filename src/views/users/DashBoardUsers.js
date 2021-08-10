@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CProgress,
-  CRow,
-} from "@coreui/react";
+import { CProgress } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
-import usersData from "./UsersData";
-
-import requestData from "../Request/RequestData";
+import { fetchUsers } from "../../reducers/users";
+import { fetchReqs } from "../../reducers/requests";
 
 const User = () => {
-  const [users, setUsers] = useState(usersData);
-  const [requests, setRequests] = useState(requestData);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUsers);
+    dispatch(fetchReqs);
+  }, []);
+
+  const users = useSelector((state) => state.users.list);
+  const requests = useSelector((state) => state.requests.list);
   const countReq = (userId) => {
     return requests.filter((req) => req.studentId === userId).length;
   };
